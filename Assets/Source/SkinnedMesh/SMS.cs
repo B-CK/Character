@@ -71,7 +71,7 @@ public class SMS : MonoBehaviour
             if (dict.ContainsKey(boneNodes[i].name))
                 bones.Add(dict[boneNodes[i].name]);
         }
-        skinnedMesh.rootBone = dict[skinnedMesh.rootBone.name];
+        //skinnedMesh.rootBone = dict[skinnedMesh.rootBone.name];
         skinnedMesh.bones = bones.ToArray();
 
         skinnedMesh.transform.parent = m_Bone.transform;
