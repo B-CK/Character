@@ -339,6 +339,7 @@
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCJoystick.cs" />
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCTouchPad.cs" />
     <Compile Include="Assets\Source\SkinnedMesh\SMS.cs" />
+    <Compile Include="Assets\Source\SkinnedMesh\SMS_Part.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EasyTouchBundle\EasyTouch\How to migrate from EasyTouch 4.X.txt" />

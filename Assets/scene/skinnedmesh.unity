@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 668880524}
   - component: {fileID: 668880523}
   - component: {fileID: 668880522}
-  - component: {fileID: 668880526}
+  - component: {fileID: 668880527}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -346,7 +346,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
---- !u!114 &668880526
+--- !u!114 &668880527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -354,10 +354,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 668880521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 264205ddb30153543b8ca2a29e1e218c, type: 3}
+  m_Script: {fileID: 11500000, guid: 44f08539e9adc1e449bf08a8b489670b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Role: {fileID: 0}
-  m_Bone: {fileID: 0}
-  m_Skin: {fileID: 0}
-  m_Ctrl: {fileID: 0}
+  m_bone: {fileID: 1077613270698466, guid: e9b40c2f53113c54a854997437488ab1, type: 2}
+  m_eye: {fileID: 1832311341654576, guid: 88a85393fee50b14fac37f0a9b814e1c, type: 2}
+  m_faces:
+  - {fileID: 1070284442580872, guid: a4162a3957b1a864bb3ce3999ab645f0, type: 2}
+  - {fileID: 1246667992919820, guid: 1401097a78b944f4d8973b6732af01c4, type: 2}
+  m_hairs:
+  - {fileID: 1757571718369506, guid: b5bdd7bade6831842a421941a3d1b705, type: 2}
+  - {fileID: 1018292988909856, guid: fc65b157522a02b49acce68a20a8b423, type: 2}
+  m_tops:
+  - {fileID: 1972846980757228, guid: 7d7819a55cd57d9448937bc2a117b73b, type: 2}
+  - {fileID: 1817810356164516, guid: 63569e0ff642b6e46974d7539dc28d08, type: 2}
+  m_pants:
+  - {fileID: 1020752022878680, guid: 9f3ffc78317c80541b947575b5dabc55, type: 2}
+  - {fileID: 1507913920366664, guid: b12daeeaf6625da4b8c78799a5f87835, type: 2}
+  m_shoes:
+  - {fileID: 1243293273609632, guid: 65a9e43b8ecd7e9458ac64cb88c5af07, type: 2}
+  - {fileID: 1264410122789046, guid: 81f35f68c8f88f447a21c09cf6654768, type: 2}

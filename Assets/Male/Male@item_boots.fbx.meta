@@ -150,6 +150,7 @@ ModelImporter:
     4300018: male_shoes-1
     4300020: male_face-2
     7400000: item_boots
+    9500000: //RootNode
     11100000: //RootNode
     13700000: male_eyes
     13700002: male_face-1
@@ -162,7 +163,62 @@ ModelImporter:
     13700016: male_shoes-2
     13700018: male_top-1
     13700020: male_top-2
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_eyes
+    second: {fileID: 2100000, guid: 86064e4c3f184d64995e45c51fa8d50a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_face-1
+    second: {fileID: 2100000, guid: 09f2f284aa941cf438da9e19039275ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_face-2
+    second: {fileID: 2100000, guid: 875ddcb80315c714c8b59ec6f1e3410e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_hair-1
+    second: {fileID: 2100000, guid: b3f3664659352ee43afe47661309fc6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_hair-2
+    second: {fileID: 2100000, guid: bdfad7a6968152349bd51c03b71ab86f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_pants-1
+    second: {fileID: 2100000, guid: 43e1a8390e462464eac1128c34131ba9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_pants-2
+    second: {fileID: 2100000, guid: 130aa77fd756ccc4ea57865f5b7111ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_shoes-1
+    second: {fileID: 2100000, guid: 9ebe01b8b53e88d47a2dcb1a0ad35214, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_shoes-2
+    second: {fileID: 2100000, guid: 1f4b362fd3e676d4caeaae84535c5fe5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_top-1
+    second: {fileID: 2100000, guid: f204ba065eef1db4e9bb36cd346e4c77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_top-2
+    second: {fileID: 2100000, guid: 8e4ffc40729a60a489b0e6906c820ac6, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -181,7 +237,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    animationCompression: 0
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -233,10 +289,10 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
