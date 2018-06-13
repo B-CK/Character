@@ -116,6 +116,7 @@ public class SMS_Part : MonoBehaviour
                 CombineInstance ci = new CombineInstance();
                 ci.mesh = skin.sharedMesh;
                 combines.Add(ci);
+
                 uvs.Add(skin.sharedMesh.uv);
                 uvLength += skin.sharedMesh.uv.Length;
 
@@ -133,6 +134,38 @@ public class SMS_Part : MonoBehaviour
                     texHeight += skin.material.mainTexture.height;
                 }
             }
+
+            //被合并图片需要是可读写状态
+            Texture2D texture = new Texture2D(get2Pow(texWidth), get2Pow(texHeight));
+            Rect[] rects = texture.PackTextures(texture2Ds.ToArray(), 0, 1024);
+            Vector2[] fullUVs = new Vector2[uvLength];
+            int index = 0;
+            for (int i = 0; i < uvs.Count; i++)
+            {
+                Rect rect = rects[i];
+                for (int j = 0; j < uvs[i].Length; j++)
+                {
+                    Vector2 uv = uvs[i][j];
+                    fullUVs[index].x = Mathf.Lerp(rect.xMin, rect.xMax, uv.x);
+                    fullUVs[index].y = Mathf.Lerp(rect.yMin, rect.yMax, uv.y);
+                    index++;
+                }
+            }
+
+            GameObject skinGo = new GameObject("SMS");
+            SkinnedMeshRenderer skinned = skinGo.AddComponent<SkinnedMeshRenderer>();
+            skinned.bones = bones.ToArray();
+
+            skinned.sharedMesh = new Mesh();
+            skinned.sharedMesh.CombineMeshes(combines.ToArray(), true, false);
+            skinned.sharedMesh.uv = fullUVs;
+
+            skinned.sharedMaterial = new Material(skinneds[0].sharedMaterial);
+            skinned.sharedMaterial.mainTexture = texture;
+
+            skinGo.transform.parent = m_maleGo.transform;
+            skinGo.transform.localPosition = Vector3.zero;
+            skinGo.transform.localEulerAngles = Vector3.right * -90;
 
         }
         else
@@ -173,5 +206,23 @@ public class SMS_Part : MonoBehaviour
         m_pantGo.SetActive(false);
         m_shoeGo.SetActive(false);
         m_topGo.SetActive(false);
+    }
+
+    /// <summary>
+    /// 获取最接近输入值的2的N次方的数，最大不会超过1024，例如输入320会得到512
+    /// </summary>
+    public int get2Pow(int into)
+    {
+        int outo = 1;
+        for (int i = 0; i < 10; i++)
+        {
+            outo *= 2;
+            if (outo > into)
+            {
+                break;
+            }
+        }
+
+        return outo;
     }
 }
