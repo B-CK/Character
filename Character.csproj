@@ -338,7 +338,6 @@
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCInput.cs" />
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCJoystick.cs" />
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCTouchPad.cs" />
-    <Compile Include="Assets\Eidtor\AnimCompress\AnimCompress.cs" />
     <Compile Include="Assets\Eidtor\AnimCompress\AnimCompressTool.cs" />
     <Compile Include="Assets\Source\SkinnedMesh\SMS.cs" />
     <Compile Include="Assets\Source\SkinnedMesh\SMS_Part.cs" />
