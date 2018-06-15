@@ -6,8 +6,12 @@ using UnityEngine;
 
 public class AnimCompressTool
 {
-    const string _postionCurve = "Position";
-    const string _scaleCurve = "Scale";
+
+
+    /// <summary>
+    /// Bip001 腰骨也是重心
+    /// </summary>
+    static readonly HashSet<string> _excludeHash = new HashSet<string>() { "Bip001", "weapon_L", "weapon_R", "bindingpoint", "Leye", "Reye" };
 
     class ClipInfo
     {
@@ -22,15 +26,19 @@ public class AnimCompressTool
         foreach (var guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
-            if (clip != null)
+            Object[] objs = AssetDatabase.LoadAllAssetsAtPath(path);
+            foreach (Object obj in objs)
             {
-                ClipInfo info = new ClipInfo()
+                AnimationClip clip = obj as AnimationClip;
+                if (clip != null && clip.name != "__preview__Take 001")
                 {
-                    path = path,
-                    clip = Object.Instantiate(clip),
-                };
-                clips.Add(info);
+                    ClipInfo info = new ClipInfo()
+                    {
+                        path = path,
+                        clip = Object.Instantiate(clip),
+                    };
+                    clips.Add(info);
+                }
             }
         }
         return clips;
@@ -47,15 +55,14 @@ public class AnimCompressTool
 
     }
 
-    [MenuItem("Assets/Compress Anim Key", false, 500)]
+    //[MenuItem("Assets/Compress Anim Key", false, 500)]
     static void OnlyCompressKey()
     {
         List<ClipInfo> clipInfos = GetAnimationClips();
         for (int i = 0; i < clipInfos.Count; i++)
         {
             var info = clipInfos[i];
-            CompressKey(info.clip, _scaleCurve);
-            CompressKey(info.clip, _postionCurve);
+            CompressKey(info.clip);
             SaveClip(info);
             if (EditorUtility.DisplayCancelableProgressBar("Only Compress Key", info.clip.name, (i + 1f) / clipInfos.Count)) break;
         }
@@ -83,7 +90,7 @@ public class AnimCompressTool
         for (int i = 0; i < clipInfos.Count; i++)
         {
             var info = clipInfos[i];
-            CompressKey(info.clip, _scaleCurve);
+            CompressKey(info.clip);
             CompressFloatPrecision(info.clip, "f3");
             SaveClip(info);
             if (EditorUtility.DisplayCancelableProgressBar("Only Compress Key&Float", info.clip.name, (i + 1f) / clipInfos.Count)) break;
@@ -91,7 +98,7 @@ public class AnimCompressTool
         EditorUtility.ClearProgressBar();
     }
 
-    [MenuItem("Assets/Compress Anim Key", true, 500)]
+    //[MenuItem("Assets/Compress Anim Key", true, 500)]
     [MenuItem("Assets/Compress Anim Float", true, 501)]
     [MenuItem("Assets/Compress Anim Key-Float", true, 502)]
     static bool RequireAnimation()
@@ -111,24 +118,34 @@ public class AnimCompressTool
         return isOk;
     }
 
-
     /// <summary>
     /// 删除指定帧
     /// </summary>
     /// <param name="clip">动画剪辑</param>
     /// <param name="keyName">帧名</param>
-    static void CompressKey(AnimationClip clip, string keyName = _scaleCurve)
+    static void CompressKey(AnimationClip clip)
     {
+        // 部分骨骼带位移
+        // 部分动画不做减帧压缩
+        // 动画压缩分类型:All,OnlyScale,None;All只包含Scale和Position
         EditorCurveBinding[] curves = AnimationUtility.GetCurveBindings(clip);
-
+        AnimationClip tempClip = Object.Instantiate(clip);
+        clip.ClearCurves();
         for (int j = 0; j < curves.Length; j++)
         {
             EditorCurveBinding curveBinding = curves[j];
 
-            if (curveBinding.propertyName.Contains(keyName))
+            int index = curveBinding.path.LastIndexOf("/");
+            string boneName = curveBinding.path.Substring(index + 1);
+            if (!_excludeHash.Contains(boneName))
             {
-                AnimationUtility.SetEditorCurve(clip, curveBinding, null);
+                if (curveBinding.propertyName.Contains("Position")
+                    || curveBinding.propertyName.Contains("Scale"))
+                    continue;
             }
+
+            AnimationCurve curve = AnimationUtility.GetEditorCurve(tempClip, curveBinding);
+            clip.SetCurve(curveBinding.path, curveBinding.type, curveBinding.propertyName, curve);
         }
     }
 
@@ -159,7 +176,7 @@ public class AnimCompressTool
             }
             curve.keys = keys;
 
-            AnimationUtility.SetEditorCurve(clip, curveBinding, curve);
+            clip.SetCurve(curveBinding.path, curveBinding.type, curveBinding.propertyName, curve);
         }
     }
 }
